@@ -1,13 +1,18 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import './index.css';
-import App from './App';
 import reportWebVitals from './reportWebVitals';
+import { RouterProvider } from 'react-router-dom';
+import router from "./router";
+import { ContextProvider } from './contexts/ContextProvider';
+import "asset/css/komono.css";
+import "asset/css/clockloader.css";
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    <App />
+    <ContextProvider>
+      <RouterProvider router={router} fallbackElement="<h1>loading...<h1/>" />
+    </ContextProvider>
   </React.StrictMode>
 );
 
