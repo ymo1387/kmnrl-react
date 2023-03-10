@@ -1,6 +1,6 @@
 import { AdvancedImage } from "@cloudinary/react";
 import { UseCloudinaryContext } from "contexts/ContextProvider";
-import { Link, useParams } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 const Tag = ({ text }) => {
 	return (
@@ -14,11 +14,10 @@ const Tag = ({ text }) => {
 };
 
 const ProductGrid = ({ p }) => {
-	const { type } = useParams();
 	const cld = UseCloudinaryContext();
 
 	let productImgClassName;
-	switch (type) {
+	switch (p.type) {
 		case "sunglasses":
 			productImgClassName = "simg simg-sg";
 			break;
@@ -32,7 +31,7 @@ const ProductGrid = ({ p }) => {
 
 	return (
 		<Link
-			to={`products/${p.slug}`}
+			to={`/products/${p.slug}`}
 			className="cs-main-products col-lg-4 col-md-6 col-sm-6"
 		>
 			<AdvancedImage
@@ -46,7 +45,7 @@ const ProductGrid = ({ p }) => {
 			/> */}
 			<div className="stext">
 				<span>{p.name}</span>
-				{type !== "opticals" && (
+				{p.type !== "opticals" && (
 					<span>
 						{p.price.discount ? (
 							<>
@@ -58,7 +57,7 @@ const ProductGrid = ({ p }) => {
 						)}
 					</span>
 				)}
-				{p.instock === 0 && type !== "opticals" && (
+				{p.instock === 0 && p.type !== "opticals" && (
 					<Tag text="Out of stock" />
 				)}
 				{p.tags.map((t, i) => (

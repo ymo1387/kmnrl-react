@@ -24,9 +24,7 @@ const Cart = () => {
 				dispatch({ type: "fullUpdate", data: response.data });
 				setIsLoading(false);
 			})
-			.catch((error) => {
-				console.log(error);
-			});
+			.catch();
 		return () => {
 			controller.abort();
 		};

@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import PaginatorGrid from "./PaginatorGrid";
 import ProductGrid from "./ProductGrid";
 import { axiosClient } from "axios-client";
+import { useNavigate } from "react-router-dom";
 
 const CollectionGrid = ({ type }) => {
 	const [products, setProducts] = useState([]);
@@ -9,15 +10,22 @@ const CollectionGrid = ({ type }) => {
 	const [isMorePage, setIsMorePage] = useState();
 	const [isLoading, setIsLoading] = useState(false);
 	const [noData, setNoData] = useState(false);
+	const navigate = useNavigate();
 
 	let parameters;
 	const parameterMap = new Map([
 		["watches", "type[eq]=watches"],
+		["new-watches", "type[eq]=watches"],
+		["best-sellers-watches", "type[eq]=watches"],
 		["sunglasses", "type[eq]=sunglasses"],
+		["new-sunglasses", "type[eq]=sunglasses"],
+		["best-sellers-sunglasses", "type[eq]=sunglasses"],
 		["straps", "type[eq]=straps"],
 		["opticals", "type[eq]=opticals"],
 	]);
-	parameters = parameterMap.has(type) && parameterMap.get(type);
+	parameters = parameterMap.has(type)
+		? parameterMap.get(type)
+		: navigate("/notfound");
 
 	useEffect(() => {
 		const controller = new AbortController();

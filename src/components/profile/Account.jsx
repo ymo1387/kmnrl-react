@@ -15,7 +15,7 @@ export default function Account() {
 			.then((response) => {
 				setUser(response.data);
 			})
-			.catch((error) => console.log(error));
+			.catch();
 		return () => {
 			controller.abort();
 		};
